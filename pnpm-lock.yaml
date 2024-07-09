@@ -17,6 +17,9 @@ importers:
       electron-updater:
         specifier: ^6.1.7
         version: 6.2.1
+      iconv-lite:
+        specifier: ^0.6.3
+        version: 0.6.3
     devDependencies:
       '@electron-toolkit/eslint-config':
         specifier: ^1.0.2
