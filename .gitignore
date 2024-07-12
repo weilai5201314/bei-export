@@ -5,3 +5,6 @@ out
 *.log*
 
 .idea
+
+hello.txt
+./data/output.json

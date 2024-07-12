@@ -1,9 +1,9 @@
 {
   "name": "bei-export",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An Electron application with Vue",
   "main": "./out/main/index.js",
-  "author": "example.com",
+  "author": "beibei",
   "homepage": "https://electron-vite.org",
   "scripts": {
     "format": "prettier --write .",
@@ -20,20 +20,23 @@
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.1",
-    "@electron-toolkit/utils": "^3.0.0",
-    "electron-updater": "^6.1.7",
-    "iconv-lite": "^0.6.3"
+    "@electron-toolkit/utils": "^3.0.0"
   },
   "devDependencies": {
     "@electron-toolkit/eslint-config": "^1.0.2",
     "@rushstack/eslint-patch": "^1.10.3",
     "@vitejs/plugin-vue": "^5.0.5",
     "@vue/eslint-config-prettier": "^9.0.0",
+    "axios": "^1.7.2",
+    "chokidar": "^3.6.0",
     "electron": "^31.0.2",
     "electron-builder": "^24.13.3",
+    "electron-updater": "^6.2.1",
     "electron-vite": "^2.3.0",
+    "element-plus": "^2.7.7",
     "eslint": "^8.57.0",
     "eslint-plugin-vue": "^9.26.0",
+    "iconv-lite": "^0.6.3",
     "prettier": "^3.3.2",
     "vite": "^5.3.1",
     "vue": "^3.4.30"
