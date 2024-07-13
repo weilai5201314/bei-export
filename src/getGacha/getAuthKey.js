@@ -1,23 +1,21 @@
+// 20
 import fs from 'fs'
 import path from 'path'
 
 function getAuthKey(gamePath) {
-  // 文件路径
-  const filePath = path.join(
-    gamePath,
-    'games',
-    'ZenlessZoneZero Game',
-    'ZenlessZoneZero_Data',
-    'webCaches',
-    '2.23.0.0',
-    'Cache',
-    'Cache_Data',
-    'data_2'
+  // 定义三者路径
+  const hk4eCnPath = path.join(gamePath.hk4eCnPath, '') // 待定
+  const hkrpgCnPath = path.join(gamePath.hkrpgCnPath, '') // 待定
+  const napCnPath = path.join(
+    gamePath.napCnPath,
+    'ZenlessZoneZero_Data\\webCaches\\2.23.0.0\\Cache\\Cache_Data\\data_2'
   )
-  const listFilePath = path.join(__dirname, 'list.txt') // list.txt的路径
+  console.log(hk4eCnPath, hkrpgCnPath, napCnPath)
 
+  // 根据参数确定调用哪个游戏路径
+  const filePath = napCnPath
   // 定义基础URL
-  let key = ''
+  let key
 
   // 读取文件内容并处理
   function processFile() {
@@ -37,7 +35,7 @@ function getAuthKey(gamePath) {
 
       if (matches && matches.length > 0) {
         // 在匹配到的URL中匹配authkey参数名及其参数值
-        const authkeyRegex = /(?:\?|&)authkey=([^&]*)/g
+        const authkeyRegex = /[?&]authkey=([^&]*)/g
         const authkeys = []
         matches.forEach((url) => {
           let match
@@ -47,13 +45,11 @@ function getAuthKey(gamePath) {
         })
         return authkeys[authkeys.length - 1]
       } else {
-        console.log('未找到匹配的URL')
-        // 如果需要，也可以清空list.txt文件
-        fs.writeFileSync(listFilePath, '')
+        console.log('201未找到匹配的URL')
         return null
       }
     } catch (err) {
-      console.error('读取文件出错:', err)
+      console.error('202读取文件出错:', err)
       return null
     }
   }

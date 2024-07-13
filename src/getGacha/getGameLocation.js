@@ -1,61 +1,52 @@
+// 30
 import { execSync } from 'child_process'
 import iconv from 'iconv-lite'
 
-function getGameLocation() {
+function getGameLocations() {
   try {
-    // 构造 cmd 命令，查询 Uninstall 键下所有子项
-    const command = `reg query "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall"`
+    // 构造 cmd 命令，查询 HYP 键下所有子项及其值
+    const command = `reg query "HKEY_CURRENT_USER\\Software\\miHoYo\\HYP" /s`
 
     // 执行 cmd 命令获取所有子项
     const outputBuffer = execSync(command)
     const result = iconv.decode(outputBuffer, 'cp936')
     const lines = result.split('\n')
 
-    // 过滤出子项路径
-    const keys = lines.filter((line) => line.startsWith('HKEY_LOCAL_MACHINE'))
+    // 初始化变量存储GameInstallPath值
+    let napCnPath = ''
+    let hk4eCnPath = ''
+    let hkrpgCnPath = ''
 
-    // console.log("Registry Key Values:");
-    let foundSoftware = false
-    let gameLocation = ''
+    // 临时变量存储当前子项路径
+    let currentKey = ''
 
-    // 遍历每个子项路径
-    keys.some((key) => {
-      try {
-        // 查询每个子项的所有值
-        const subCommand = `reg query "${key.trim()}"`
-        const subOutputBuffer = execSync(subCommand)
-        const subResult = iconv.decode(subOutputBuffer, 'cp936')
-        const subLines = subResult.split('\n')
-
-        let softwareInfo = {}
-
-        // 提取子项的所有属性和对应的值
-        subLines.forEach((line) => {
-          const parts = line.trim().split(/\s{3,}/) // 修改分隔符为至少三个空格
-          if (parts.length === 3) {
-            const [name, , value] = parts
-            softwareInfo[name] = value
+    // 遍历每一行
+    lines.forEach((line) => {
+      // 如果行是一个子项路径，则更新currentKey
+      if (line.trim().startsWith('HKEY_CURRENT_USER\\Software\\miHoYo\\HYP\\')) {
+        currentKey = line.trim()
+      } else if (line.includes('GameInstallPath')) {
+        const parts = line.trim().split(/\s{3,}/) // 分隔符为至少三个空格
+        if (parts.length === 3) {
+          const [, , value] = parts
+          // 根据路径结尾确定匹配的游戏
+          if (currentKey.endsWith('nap_cn') && value.includes('ZenlessZoneZero Game')) {
+            napCnPath = value
+          } else if (currentKey.endsWith('hkrpg_cn') && value.includes('Star Rail Game')) {
+            hkrpgCnPath = value
+          } else if (currentKey.endsWith('hk4e_cn') && value.includes('Genshin Impact Game')) {
+            hk4eCnPath = value
           }
-        })
-        // 如果找到 DisplayName 包含 "米哈游启动器"，则输出所有内容并结束循环
-        if (softwareInfo['DisplayName'] && softwareInfo['DisplayName'].includes('米哈游启动器')) {
-          foundSoftware = true
-          gameLocation = softwareInfo['InstallPath']
-          return true // 结束循环
         }
-      } catch (subError) {
-        // 处理每个子项查询中的错误
-        console.error(`Error querying subkey ${key.trim()}:`, subError)
       }
     })
-    if (!foundSoftware) {
-      console.log('没找到')
-    }
-    // 最后返回
-    return gameLocation
+
+    // 返回提取的路径
+    return { hk4eCnPath, hkrpgCnPath, napCnPath }
   } catch (error) {
     console.error('Error executing cmd command:', error)
+    return { hk4eCnPath: 'null', hkrpgCnPath: 'null', napCnPath: 'null' }
   }
 }
 
-export { getGameLocation }
+export { getGameLocations }

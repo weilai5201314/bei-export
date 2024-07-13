@@ -7,4 +7,4 @@ out
 .idea
 
 hello.txt
-./data/output.json
+data/output.json

@@ -2,6 +2,7 @@
 import Versions from './components/Versions.vue'
 
 const ipcHandle = () => window.electron.ipcRenderer.send('ping')
+const ipcTest = () => window.electron.ipcRenderer.send('getGachaMain')
 </script>
 
 <template>
@@ -14,7 +15,7 @@ const ipcHandle = () => window.electron.ipcRenderer.send('ping')
   <p class="tip">Please try pressing <code>F12</code> to open the devTool</p>
   <div class="actions">
     <div class="action">
-      <a href="https://electron-vite.org/" target="_blank" rel="noreferrer">Documentation</a>
+      <a target="_blank" rel="noreferrer" @click="ipcTest">生成抽卡记录</a>
     </div>
     <div class="action">
       <a target="_blank" rel="noreferrer" @click="ipcHandle">Send IPC</a>

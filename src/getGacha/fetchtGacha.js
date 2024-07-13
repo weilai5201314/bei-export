@@ -1,3 +1,4 @@
+// 10
 import fs from 'fs'
 import axios from 'axios'
 
@@ -9,10 +10,10 @@ const fetchGachaData = async (authKey, inputFileName, size = 20) => {
   let endId = ''
   fs.mkdir('./data', (err) => {
     if (err) {
-      console.log('文件夹创建失败 ！')
+      console.log('101文件夹创建失败 ！')
       return
     }
-    console.log('文件夹创建成功 ！')
+    console.log('102文件夹创建成功 ！')
   })
 
   const readExistingRecords = () => {
@@ -21,7 +22,7 @@ const fetchGachaData = async (authKey, inputFileName, size = 20) => {
       try {
         return JSON.parse(data)
       } catch (error) {
-        console.error('Error parsing existing records:', error)
+        console.error('103Error parsing existing records:', error)
         return []
       }
     }
@@ -30,7 +31,7 @@ const fetchGachaData = async (authKey, inputFileName, size = 20) => {
 
   const writeRecordsToFile = (inputFileName, records) => {
     fs.writeFileSync(inputFileName, JSON.stringify(records, null, 2), 'utf-8')
-    console.log('Gacha records have been written to input.json file')
+    console.log('104Gacha records have been written to input.json file')
   }
 
   const fetchPage = async () => {
@@ -70,7 +71,7 @@ const fetchGachaData = async (authKey, inputFileName, size = 20) => {
 
     try {
       const response = await axios.get(url)
-      console.log('Request successful:', response.data)
+      console.log('105Request successful:', response.data)
 
       const data = response.data
       if (data.retcode === 0 && data.message === 'OK') {
@@ -87,10 +88,10 @@ const fetchGachaData = async (authKey, inputFileName, size = 20) => {
           await fetchPage()
         }
       } else {
-        console.log('Request error:', data.message)
+        console.log('106Request error:', data.message)
       }
     } catch (error) {
-      console.error('Request failed:', error)
+      console.error('107Request failed:', error)
     }
   }
 
