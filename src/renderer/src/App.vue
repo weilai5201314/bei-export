@@ -15,10 +15,15 @@ const ipcTest = () => window.electron.ipcRenderer.send('getGachaMain')
   <p class="tip">Please try pressing <code>F12</code> to open the devTool</p>
   <div class="actions">
     <div class="action">
-      <a target="_blank" rel="noreferrer" @click="ipcTest">生成抽卡记录</a>
+      <el-button type="danger" @click="ipcTest">生成抽卡记录</el-button>
+      <el-button type="success" @click="ipcTest">生成抽卡记录</el-button>
+      <el-button type="warning" @click="ipcTest">生成抽卡记录</el-button>
     </div>
     <div class="action">
-      <a target="_blank" rel="noreferrer" @click="ipcHandle">Send IPC</a>
+      <el-button type="danger" @click="ipcHandle">Send IPC</el-button>
+    </div>
+    <div class="action">
+      <el-button type="primary">Primary Button</el-button>
     </div>
   </div>
   <Versions />
