@@ -18,12 +18,10 @@ const ipcTest = () => window.electron.ipcRenderer.send('getGachaMain')
       <el-button type="danger" @click="ipcTest">生成抽卡记录</el-button>
       <el-button type="success" @click="ipcTest">生成抽卡记录</el-button>
       <el-button type="warning" @click="ipcTest">生成抽卡记录</el-button>
+      <el-button type="primary">Primary Button</el-button>
     </div>
     <div class="action">
       <el-button type="danger" @click="ipcHandle">Send IPC</el-button>
-    </div>
-    <div class="action">
-      <el-button type="primary">Primary Button</el-button>
     </div>
   </div>
   <Versions />
