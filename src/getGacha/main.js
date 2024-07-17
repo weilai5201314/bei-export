@@ -1,7 +1,7 @@
-import { getAuthKey } from './getAuthKey'
-import { getGameLocations } from './getGameLocation'
-import { fetchGachaData } from './fetchtGacha'
-import { sortGachaLog } from './sortGacha'
+import { getAuthKey } from './old/getAuthKey'
+import { getGameLocations } from './old/getGameLocation'
+import { fetchGachaData } from './old/fetchtGacha'
+import { sortGachaLog } from './old/sortGacha'
 
 const size = 20
 const inputFile = './data/input.json'

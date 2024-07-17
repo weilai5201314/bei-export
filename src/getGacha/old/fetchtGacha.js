@@ -42,8 +42,8 @@ const fetchGachaData = async (authKey, inputFileName, size = 20) => {
       win_mode: 'fullscreen',
       gacha_id: '2c1f5692fdfbb733a08733f9eb69d32aed1d37',
       timestamp: Math.floor(Date.now() / 1000),
-      init_log_gacha_type: 2001,
-      init_log_gacha_base_type: 2,
+      init_log_gacha_type: 5001,
+      init_log_gacha_base_type: 5,
       ui_layout: '',
       button_mode: 'default',
       plat_type: 3,
@@ -53,8 +53,8 @@ const fetchGachaData = async (authKey, inputFileName, size = 20) => {
       game_biz: 'nap_cn',
       page: page,
       size: size,
-      gacha_type: 2001,
-      real_gacha_type: 2,
+      gacha_type: 5001,
+      real_gacha_type: 5,
       end_id: endId
     }
 
