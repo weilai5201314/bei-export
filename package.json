@@ -9,7 +9,7 @@
     "format": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
     "start": "electron-vite preview",
-    "dev": "electron-vite dev",
+    "dev": "electron-vite dev -w",
     "build": "electron-vite build",
     "postinstall": "electron-builder install-app-deps",
     "build:unpack": "npm run build && electron-builder --dir",
@@ -25,6 +25,7 @@
   "devDependencies": {
     "@electron-toolkit/eslint-config": "^1.0.2",
     "@rushstack/eslint-patch": "^1.10.3",
+    "@typescript-eslint/parser": "^7.16.1",
     "@vitejs/plugin-vue": "^5.0.5",
     "@vue/eslint-config-prettier": "^9.0.0",
     "axios": "^1.7.2",
