@@ -56,7 +56,7 @@ app.whenReady().then(() => {
   ipcMain.on('getGachaMain', () => {
     getGachaMain()
   })
-  // ipcMain.on('getLocation', () => )
+
   createWindow()
 
   app.on('activate', function () {

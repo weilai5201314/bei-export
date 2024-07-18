@@ -20,6 +20,7 @@ class NapCnGame extends BaseGame {
     // 部分参数
     this.gamePath = null
     this.authKey = null
+    this.currentPath = null
   }
 
   // 获取游戏位置
@@ -30,14 +31,12 @@ class NapCnGame extends BaseGame {
 
   // 获取认证密钥
   getAuthKey() {
-    console.log(this.gamePath)
-    if (this.gamePath===null) {
+    if (this.gamePath === null) {
       throw new Error('Game location must be set before getting auth key')
     }
     // 获取
     // console.log('getAuthKey()', this.gamePath)
-    this.authKey = 'some_auth_key' // 示例密钥，根据 this.authPath 逻辑生成
-    return this.authKey
+    this.#getNapCnKey()
   }
 
   // 获取抽卡数据
@@ -54,24 +53,21 @@ class NapCnGame extends BaseGame {
   #getNapCnPath() {
     try {
       const command = `reg query "HKEY_CURRENT_USER\\Software\\miHoYo\\HYP" /s`
-      // 执行 cmd 命令获取所有子项
       const outputBuffer = execSync(command)
       const result = iconv.decode(outputBuffer, 'cp936')
       const lines = result.split('\n')
-      // 临时变量存储当前子项路径
-      let currentKey = ''
       // 遍历每一行
       lines.forEach((line) => {
         // 如果行是一个子项路径，则更新currentKey
         if (line.trim().startsWith('HKEY_CURRENT_USER\\Software\\miHoYo\\HYP\\')) {
-          currentKey = line.trim()
+          this.currentPath = line.trim()
         } else if (line.includes('GameInstallPath')) {
           const parts = line.trim().split(/\s{3,}/) // 分隔符为至少三个空格
           if (parts.length === 3) {
             const [, , value] = parts
             // 根据路径结尾确定匹配的游戏
-            if (currentKey.endsWith('nap_cn') && value.includes('ZenlessZoneZero Game')) {
-              // 拼接游戏路径和游戏文件路径,此时已是完整路径
+            if (this.currentPath.endsWith('nap_cn') && value.includes('ZenlessZoneZero Game')) {
+              // 拼接游戏路径和游戏文件路径,此时已是完整路径,无需再修改
               this.gamePath = path.join(value, NapCnGame.CACHE_PATH)
               console.log(this.gamePath)
             }
@@ -85,7 +81,7 @@ class NapCnGame extends BaseGame {
   }
 
   // 获取authkey - 私有方法
-  #getAuthKey() {}
+  #getNapCnKey() {}
 }
 
 export { NapCnGame }
