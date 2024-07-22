@@ -24,48 +24,48 @@ getGacha/
 
 ```javascript
 // GameManager.js
-import GenshinImpact from './GenshinImpact';
-import StarRail from './StarRail';
+import GenshinImpact from './GenshinImpact'
+import StarRail from './StarRail'
 
 class GameManager {
   constructor() {
-    this.games = [];
+    this.games = []
   }
 
   addGame(game) {
-    this.games.push(game);
+    this.games.push(game)
   }
 
   async fetchAllGachaData() {
     for (const game of this.games) {
-      const gamePath = game.getGameLocation();
-      const authKey = game.getAuthKey(gamePath);
-      await game.fetchGachaData(authKey, `./data/${game.name}_input.json`, 20);
+      const gamePath = game.getGameLocation()
+      const authKey = game.getAuthKey(gamePath)
+      await game.fetchGachaData(authKey, `./data/${game.name}_input.json`, 20)
     }
   }
 }
 
-export default GameManager;
+export default GameManager
 
 // main.js
-import GameManager from './GameManager';
-import GenshinImpact from './GenshinImpact';
-import StarRail from './StarRail';
-import { sortGachaLog } from './sortGacha';
+import GameManager from './GameManager'
+import GenshinImpact from './GenshinImpact'
+import StarRail from './StarRail'
+import { sortGachaLog } from './sortGacha'
 
 async function main() {
-  const gameManager = new GameManager();
+  const gameManager = new GameManager()
 
   // 添加游戏实例
-  gameManager.addGame(new GenshinImpact());
-  gameManager.addGame(new StarRail());
+  gameManager.addGame(new GenshinImpact())
+  gameManager.addGame(new StarRail())
 
   // 获取所有游戏的抽卡数据
-  await gameManager.fetchAllGachaData();
+  await gameManager.fetchAllGachaData()
 
   // 整理抽卡记录
-  sortGachaLog('./data/input.json', './data/output.json');
+  sortGachaLog('./data/input.json', './data/output.json')
 }
 
-main();
+main()
 ```
